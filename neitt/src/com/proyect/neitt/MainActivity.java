@@ -1,7 +1,12 @@
 package com.proyect.neitt;
 
 import java.security.PublicKey;
+import java.util.ArrayList;
 
+import entity.ItemProducto;
+import fragments.FragmentProductos;
+
+import adaptadores.ProductoAdapter;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -9,6 +14,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -26,6 +33,8 @@ public class MainActivity extends ActionBarActivity {
     private ListView drawerList;
     private ActionBarDrawerToggle drawerToggle;
     private String titulo;
+    
+    private Fragment currentFragment;
     
 	
     @Override
@@ -42,8 +51,15 @@ public class MainActivity extends ActionBarActivity {
         
         drawerList = (ListView)findViewById(R.id.left_drawer);
         //se llena el list view
-        drawerList.setAdapter(new ArrayAdapter<String>(this.getSupportActionBar().getThemedContext(), android.R.layout.simple_list_item_1,opcionesMenu));
+        ArrayList<ItemProducto> productos = new ArrayList<ItemProducto>();
+        ItemProducto item = new ItemProducto();
+        item.setTitulo("hola");
+        item.setSubTitulo("mundo");
+        productos.add(item);
+        productos.add(item);
+        //drawerList.setAdapter(new ArrayAdapter<String>(getSupportActionBar().getThemedContext(), android.R.layout.simple_list_item_1,opcionesMenu));
         
+        drawerList.setAdapter(new ProductoAdapter(this,productos,1));
         
        
         //Eventos de la lista
@@ -53,23 +69,40 @@ public class MainActivity extends ActionBarActivity {
 					long id) {
 				
 				Fragment fragment = null;
-				switch(position)
+				Log.d("position", "la posicion en : " + position);
+				int pocicion = position +1;
+				switch(pocicion)
 				{
 					case 1:
+						fragment = new Fragment1();
+						break;
+					case 2:
+						fragment  = new FragmentProductos();
+						currentFragment = fragment;
+						break;
+						default:
 						fragment = new Fragment1();
 						break;
 				}
 				
 				android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
 				
+				//Se reemplaza el fragment
 				fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 				
 				
 				drawerList.setItemChecked(position, true);
 				
-				 titulo = opcionesMenu[position];
+				titulo = opcionesMenu[position];
 				getSupportActionBar().setTitle(titulo);
 				drawerLayout.closeDrawer(drawerList);
+				
+				
+				if(currentFragment != null)
+		        {
+		        	//TextView t = (TextView)currentFragment.getView().findViewById(R.id.texto_fragment);
+		        	//t.setText("holamundo");
+		        }
 			
 				//comportamiento drawer
 				

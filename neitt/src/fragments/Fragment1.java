@@ -1,4 +1,7 @@
-package com.proyect.neitt;
+package fragments;
+
+import com.proyect.neitt.R;
+import com.proyect.neitt.R.layout;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

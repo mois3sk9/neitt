@@ -4,8 +4,11 @@ import java.security.PublicKey;
 import java.util.ArrayList;
 
 import entity.ItemProducto;
+import entity.OpcionesDrawer;
+import fragments.Fragment1;
 import fragments.FragmentProductos;
 
+import adaptadores.ListDrawerAdapter;
 import adaptadores.ProductoAdapter;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -49,18 +52,18 @@ public class MainActivity extends ActionBarActivity {
         
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         
-        drawerList = (ListView)findViewById(R.id.left_drawer);
+        drawerList = (ListView)findViewById(R.id.left_drawer); //Listview que corresponde al drawer
         //se llena el list view
-        ArrayList<ItemProducto> productos = new ArrayList<ItemProducto>();
-        ItemProducto item = new ItemProducto();
-        item.setTitulo("hola");
-        item.setSubTitulo("mundo");
-        productos.add(item);
-        productos.add(item);
+        ArrayList<OpcionesDrawer> opciones = new ArrayList<OpcionesDrawer>();
+        opciones.add(new OpcionesDrawer("Amigos","Ver amigos que han comprado el producto",getResources().getDrawable(R.drawable.socialgroup)));
+        opciones.add(new OpcionesDrawer("Productos","Revisar ultimos productos",getResources().getDrawable(R.drawable.socialgroup)));
+        opciones.add(new OpcionesDrawer("Marcas","Ver marcas",getResources().getDrawable(R.drawable.socialgroup)));
+        
+        
         //drawerList.setAdapter(new ArrayAdapter<String>(getSupportActionBar().getThemedContext(), android.R.layout.simple_list_item_1,opcionesMenu));
         
-        drawerList.setAdapter(new ProductoAdapter(this,productos,1));
-        
+        //drawerList.setAdapter(new ListDrawerAdapter(this,opciones));
+        drawerList.setAdapter(new ListDrawerAdapter(getSupportActionBar().getThemedContext(),opciones));
        
         //Eventos de la lista
         drawerList.setOnItemClickListener(new OnItemClickListener() {

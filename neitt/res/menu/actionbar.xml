@@ -7,12 +7,17 @@
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         sgoliver:showAsAction="ifRoom"
-        android:title="settings"/>
+        android:title="settings"
+        />
  
     <item
         android:id="@+id/action_search"
         android:orderInCategory="100"
-        sgoliver:showAsAction="ifRoom"
-        
+        sgoliver:showAsAction="ifRoom"  
         android:title="Busqueda"/>
+     <item
+        android:id="@+id/Preferencias"
+        android:orderInCategory="100"
+        sgoliver:showAsAction="never"
+        android:title="Preferencias"/>
 </menu>

@@ -83,7 +83,7 @@ public class MainActivity extends ActionBarActivity {
 						fragment  = new FragmentProductos();
 						currentFragment = fragment;
 						break;
-						default:
+					default:
 						fragment = new Fragment1();
 						break;
 				}
@@ -108,9 +108,6 @@ public class MainActivity extends ActionBarActivity {
 		        }
 			
 				//comportamiento drawer
-				
-				
-				
 				
 			}
 		});

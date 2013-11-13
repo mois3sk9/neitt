@@ -10,6 +10,8 @@ import fragments.FragmentProductos;
 
 import adaptadores.ListDrawerAdapter;
 import adaptadores.ProductoAdapter;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -45,7 +47,10 @@ public class MainActivity extends ActionBarActivity {
     		
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-                
+        
+        //--Fragment por defecto--
+        currentFragment = new Fragment1();
+        
         
         //opciones
         opcionesMenu = new String[] {"Opción 1", "Opción 2", "Opción 3"};
@@ -78,19 +83,26 @@ public class MainActivity extends ActionBarActivity {
 				{
 					case 1:
 						fragment = new Fragment1();
-						break;
-					case 2:
-						fragment  = new FragmentProductos();
 						currentFragment = fragment;
 						break;
+					case 2:
+						//Toast.makeText(MainActivity.this, "case 2", Toast.LENGTH_SHORT).show();
+						fragment = currentFragment;
+						Intent productosIntent = new Intent(MainActivity.this, ProductoActivity.class);
+						startActivity(productosIntent);
+						
+						//startActivity(new Intent(this,ProductoActivity.class));
+						//fragment  = new FragmentProductos();
+						//currentFragment = fragment;
+						break;
 					default:
-						fragment = new Fragment1();
+						fragment = currentFragment;
 						break;
 				}
 				
 				android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
 				
-				//Se reemplaza el fragment
+				//---Se reemplaza el fragment
 				fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 				
 				
@@ -101,11 +113,11 @@ public class MainActivity extends ActionBarActivity {
 				drawerLayout.closeDrawer(drawerList);
 				
 				
-				if(currentFragment != null)
+				/*if(currentFragment != null)
 		        {
 		        	//TextView t = (TextView)currentFragment.getView().findViewById(R.id.texto_fragment);
 		        	//t.setText("holamundo");
-		        }
+		        }*/
 			
 				//comportamiento drawer
 				

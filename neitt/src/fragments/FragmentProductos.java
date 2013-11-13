@@ -39,11 +39,10 @@ public class FragmentProductos extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		//return super.onCreateView(inflater, container, savedInstanceState);
-		//GridView grilla = (GridView)getView().findViewById(R.id.grilla_productos);
-		//TextView text = (TextView)getView().findViewById(R.id.texto_fragment);
-		//text.setText("holamundo");
+		
+		//--Se recupera el fragment 
 		View rootView = inflater.inflate(R.layout.fragment_productos, container,false);
+		
 		GridView grilla = (GridView) rootView.findViewById(R.id.grilla_productos);
 		
 		ItemProducto producto = new ItemProducto("hola","producto1");
@@ -70,10 +69,6 @@ public class FragmentProductos extends Fragment{
 		productos.add(producto10);
 		
 		grilla.setAdapter(new ProductoAdapter(this.getActivity(),productos,1));
-	
-		TextView texto = (TextView) rootView.findViewById(R.id.texto_fragment);
-		texto.setText("e.e.e.e.e.");
-		
 		return rootView;
 		
 		

@@ -18,6 +18,10 @@ import entity.ItemProducto;
 
 public class ProductoAdapter extends BaseAdapter{
 
+	/*--Adaptador que se utiliza en la grilla definida en el layout fragment_productos
+	 * 
+	 * 
+	 */
 	private Context context;
 	ArrayList<ItemProducto> productos;
 	Activity activity;

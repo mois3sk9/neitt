@@ -13,7 +13,7 @@
          >
 
         <ImageView
-            android:id="@+id/imageView1"
+            android:id="@+id/imagen_dtl_producto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -31,7 +31,7 @@
             />
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/lbl_subtitulo_dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView" />

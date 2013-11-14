@@ -2,6 +2,8 @@ package fragments;
 
 import java.util.ArrayList;
 
+import com.proyect.neitt.DetalleProductoActivity;
+import com.proyect.neitt.MainActivity;
 import com.proyect.neitt.R;
 import com.proyect.neitt.R.id;
 import com.proyect.neitt.R.layout;
@@ -9,18 +11,29 @@ import com.proyect.neitt.R.layout;
 import entity.ItemProducto;
 
 import adaptadores.ProductoAdapter;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView.FindListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class FragmentProductos extends Fragment{
 
+	//--Interfaz para la comunicacion con la activity
+	public interface OnComunicationProductos {
+        public void onArticleSelected(int position,View view);
+    }
+	
+	OnComunicationProductos callback;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -29,10 +42,21 @@ public class FragmentProductos extends Fragment{
 		
 		//GridView grilla = (GridView)getView().findViewById(R.id.grilla_productos);
 		
+	}
+	
+	@Override
+	public void onAttach(Activity activity) {
+		// TODO Auto-generated method stub
+		super.onAttach(activity);
 		
-		
-		
-		
+		//---esto se asegura de que la activity que contenga este fragment implemente la interfaz onComunicationProduct
+		try{
+			callback = (OnComunicationProductos)activity;
+		}
+		catch(ClassCastException e)
+		{
+			throw new ClassCastException(activity.toString() + "Se debe implementar onComunicationProducts");
+		}
 	}
 	
 	@Override
@@ -44,6 +68,33 @@ public class FragmentProductos extends Fragment{
 		View rootView = inflater.inflate(R.layout.fragment_productos, container,false);
 		
 		GridView grilla = (GridView) rootView.findViewById(R.id.grilla_productos);
+		
+		//--Escuchador grilla--
+		grilla.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position,
+					long id) {
+				
+				//---Saber si el otro fragment se encuentra en el layout
+				//--se pregunta si la orientacion de la pantalla esta en modo landscape
+				if((getActivity().getResources().getConfiguration().orientation) == Configuration.ORIENTATION_LANDSCAPE)
+				{
+					//--Se ejecuta la interfaz callback en caso de tener el detalle del producto en la misma activity.
+					callback.onArticleSelected(position,view);
+				}
+				else
+				{
+					//--Si no esta en la misma activity, se transapasa a una activity que contiene solo el detalle del producto
+					Intent detalleProductos = new Intent(getActivity(),DetalleProductoActivity.class);
+					startActivity(detalleProductos);
+					
+				}
+				Toast.makeText(getActivity().getApplicationContext(), "la pocicion pulsada fue" + position, 3000).show();
+				
+			}
+		
+		});
 		
 		ItemProducto producto = new ItemProducto("hola","producto1");
 		ItemProducto producto2 = new ItemProducto("chao","Producto2");
@@ -69,6 +120,11 @@ public class FragmentProductos extends Fragment{
 		productos.add(producto10);
 		
 		grilla.setAdapter(new ProductoAdapter(this.getActivity(),productos,1));
+		
+		
+		
+		
+		
 		return rootView;
 		
 		

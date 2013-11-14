@@ -93,7 +93,7 @@ public class JsonConection {
 	public String fetchResponse(HttpResponse respuesta)throws Exception
 	{
 		/*
-		 * Metodo el cual se encarga de obtener todos los datos que se obtuvieron previamente a una peticion Json
+		 * ---Metodo el cual se encarga de obtener todos los datos que se obtuvieron previamente a una peticion Json
 		 */
 		StringBuilder builder = new StringBuilder();
 		try

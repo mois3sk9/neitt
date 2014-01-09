@@ -13,6 +13,8 @@ import adaptadores.ProductoAdapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.ActivityCompat;
@@ -58,10 +60,10 @@ public class MainActivity extends ActionBarActivity {
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         
         drawerList = (ListView)findViewById(R.id.left_drawer); //Listview que corresponde al drawer
-        //se llena el list view
+        //----se llena el list view
         ArrayList<OpcionesDrawer> opciones = new ArrayList<OpcionesDrawer>();
-        opciones.add(new OpcionesDrawer("Amigos","Ver amigos que han comprado el producto",getResources().getDrawable(R.drawable.socialgroup)));
-        opciones.add(new OpcionesDrawer("Productos","Revisar ultimos productos",getResources().getDrawable(R.drawable.socialgroup)));
+        opciones.add(new OpcionesDrawer("Check-in","Escanea tu producto",getResources().getDrawable(R.drawable.qrand)));
+        opciones.add(new OpcionesDrawer("Productos","Revisar productos",getResources().getDrawable(R.drawable.socialgroup)));
         opciones.add(new OpcionesDrawer("Marcas","Ver marcas",getResources().getDrawable(R.drawable.socialgroup)));
         
         
@@ -69,7 +71,7 @@ public class MainActivity extends ActionBarActivity {
         
         //drawerList.setAdapter(new ListDrawerAdapter(this,opciones));
         drawerList.setAdapter(new ListDrawerAdapter(getSupportActionBar().getThemedContext(),opciones));
-       
+        
         //Eventos de la lista
         drawerList.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -143,7 +145,9 @@ public class MainActivity extends ActionBarActivity {
         };
          drawerLayout.setDrawerListener(drawerToggle);
          getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0342ab")));
          getSupportActionBar().setHomeButtonEnabled(true);
+         
     }
 
 

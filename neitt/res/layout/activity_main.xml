@@ -10,16 +10,32 @@
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" >
+
+        
+
+    </FrameLayout>
 
     <!-- Menú Lateral -->
 
-    <ListView
+    <!--  <ListView
         android:id="@+id/left_drawer"
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="#111"
-        android:choiceMode="singleChoice" />
+        android:choiceMode="singleChoice" /> -->
+        
+        <ListView
+        android:id="@+id/left_drawer"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/silver"
+        android:choiceMode="singleChoice"
+        android:divider="@color/silver_divider"
+        android:dividerHeight="2dp" />
+       
+        
 
 </android.support.v4.widget.DrawerLayout>

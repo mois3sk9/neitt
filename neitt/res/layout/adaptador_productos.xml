@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" 
-    android:padding="0dp"
+    android:padding="5dp"
+    android:background="@color/white"
     
     >
 
@@ -20,8 +21,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/productos_subtitulo"
-        android:minHeight="40dp"
-        android:minWidth="40dp"
+        android:minHeight="60dp"
+        android:minWidth="80dp"
+        android:maxWidth="60dp"
+        android:maxHeight="80dp"
+        android:adjustViewBounds="true"
         android:src="@drawable/ic_launcher"
         android:scaleType="centerCrop"
          />
@@ -37,6 +41,6 @@
         android:layout_marginTop="16dp"
         android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/abc_search_url_text_holo" />
+        android:textColor="@color/neittcolor" />
 
 </RelativeLayout>

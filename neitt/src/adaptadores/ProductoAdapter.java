@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView.FindListener;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import entity.ItemProducto;
 
@@ -81,11 +82,13 @@ public class ProductoAdapter extends BaseAdapter{
 		//Se referencian los componenetes
 		TextView titulo = (TextView)v.findViewById(R.id.productos_titulo);
 		TextView subtitulo = (TextView)v.findViewById(R.id.productos_subtitulo);
-		
+		ImageView imagen  = (ImageView)v.findViewById(R.id.productos_imagen);
 		//se carga cada producto dentro de la grilla
 		
 		titulo.setText(producto.getTitulo());
-		subtitulo.setTag(producto.getSubTitulo());
+		subtitulo.setText(producto.getSubTitulo());
+		if(imagen!=null)
+			imagen.setImageResource(producto.getImage());
 		
 		
 		

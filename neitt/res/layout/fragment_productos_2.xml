@@ -22,6 +22,7 @@
         android:verticalSpacing="2dp"
         android:horizontalSpacing="2dp"
         android:columnWidth="90dp"
+        android:gravity="center_horizontal"
         android:stretchMode="columnWidth"
         android:layout_gravity="center_horizontal"
         >

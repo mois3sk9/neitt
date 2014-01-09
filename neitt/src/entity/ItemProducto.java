@@ -8,17 +8,20 @@ public class ItemProducto implements Parcelable{
 
 	private String titulo;
 	private String subtitulo;
-	private ImageView image;
-	
-	
+	private int image;
 	public ItemProducto()
 	{
-		
+		this.image=0;
 	}
 	public ItemProducto(String titulo,String subtitulo)
 	{
 		setTitulo(subtitulo);
 		setSubTitulo(subtitulo);
+	}public ItemProducto(String titulo,String subtitulo,int imagen)
+	{
+		setTitulo(subtitulo);
+		setSubTitulo(subtitulo);
+		setImage(imagen);
 	}
 	public String getTitulo()
 	{
@@ -28,7 +31,7 @@ public class ItemProducto implements Parcelable{
 	{
 		return subtitulo;
 	}
-	public ImageView getImage()
+	public int getImage()
 	{
 		return image;
 	}
@@ -40,7 +43,7 @@ public class ItemProducto implements Parcelable{
 	{
 		this.subtitulo = subtitulo;
 	}
-	public void setImage(ImageView image)
+	public void setImage(int image)
 	{
 		this.image = image;
 	}

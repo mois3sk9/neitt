@@ -28,9 +28,12 @@ import android.widget.Toast;
 
 public class FragmentProductos extends Fragment{
 
+	ArrayList<ItemProducto> productos = new ArrayList<ItemProducto>();
+	
+	
 	//--Interfaz para la comunicacion con la activity
 	public interface OnComunicationProductos {
-        public void onArticleSelected(int position,View view);
+        public void onArticleSelected(int position,View view,ItemProducto producto);
     }
 	
 	OnComunicationProductos callback;
@@ -81,7 +84,7 @@ public class FragmentProductos extends Fragment{
 				if((getActivity().getResources().getConfiguration().orientation) == Configuration.ORIENTATION_LANDSCAPE)
 				{
 					//--Se ejecuta la interfaz callback en caso de tener el detalle del producto en la misma activity.
-					callback.onArticleSelected(position,view);
+					callback.onArticleSelected(position,view,productos.get(position));
 				}
 				else
 				{
@@ -96,9 +99,9 @@ public class FragmentProductos extends Fragment{
 		
 		});
 		
-		ItemProducto producto = new ItemProducto("hola","producto1");
-		ItemProducto producto2 = new ItemProducto("chao","Producto2");
-		ItemProducto producto3 = new ItemProducto(";D","Producto3");
+		ItemProducto producto = new ItemProducto("tablet de 7\"","Tablet AoC",R.drawable.table1t);
+		ItemProducto producto2 = new ItemProducto("intel core i5","Notebook Samsung",R.drawable.notebook1);
+		ItemProducto producto3 = new ItemProducto("celular 4\"","Samsung Galaxy",R.drawable.celu1);
 		ItemProducto producto4 = new ItemProducto(";D","Producto4");
 		ItemProducto producto5 = new ItemProducto(";D","Producto5");
 		ItemProducto producto6 = new ItemProducto(";D","Producto6");
@@ -107,7 +110,7 @@ public class FragmentProductos extends Fragment{
 		ItemProducto producto9 = new ItemProducto(";D","Producto9");
 		ItemProducto producto10 = new ItemProducto(";D","Producto10");
 		
-		ArrayList<ItemProducto> productos = new ArrayList<ItemProducto>();
+		
 		productos.add(producto);
 		productos.add(producto2);
 		productos.add(producto3);

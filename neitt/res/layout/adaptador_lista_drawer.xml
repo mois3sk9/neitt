@@ -5,26 +5,6 @@
     android:padding="10dp"
      >
 
-        <ImageView
-            android:id="@+id/image_list_drawer"
-            android:layout_width="37dp"
-            android:layout_height="37dp"
-            android:layout_alignBottom="@+id/subtitulo_list_drawer"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="14dp"
-            android:layout_weight="0.07"
-            android:src="@drawable/abc_ab_stacked_solid_light_holo" />
-
-        <TextView
-            android:id="@+id/subtitulo_list_drawer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/titulo_list_drawer"
-            android:layout_marginLeft="39dp"
-            android:layout_toRightOf="@+id/image_list_drawer"
-            android:text="Small Text"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
         <TextView
             android:id="@+id/titulo_list_drawer"
             android:layout_width="wrap_content"
@@ -33,6 +13,25 @@
             android:layout_marginLeft="21dp"
             android:layout_toRightOf="@+id/image_list_drawer"
             android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <ImageView
+            android:id="@+id/image_list_drawer"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
+            android:layout_alignBottom="@+id/subtitulo_list_drawer"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="0.07"
+            android:src="@drawable/abc_ab_stacked_solid_light_holo" />
+
+        <TextView
+            android:id="@+id/subtitulo_list_drawer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/titulo_list_drawer"
+            android:layout_below="@+id/titulo_list_drawer"
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
     
 </RelativeLayout>

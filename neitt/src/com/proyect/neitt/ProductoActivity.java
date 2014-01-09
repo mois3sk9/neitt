@@ -4,6 +4,8 @@ import entity.ItemProducto;
 import fragments.FragmentDetalleProductos;
 import fragments.FragmentProductos.OnComunicationProductos;
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -18,7 +20,7 @@ public class ProductoActivity extends ActionBarActivity implements OnComunicatio
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_productos);
-		
+		getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0342ab")));
 		
 	}
 	
@@ -32,17 +34,16 @@ public class ProductoActivity extends ActionBarActivity implements OnComunicatio
 	}
 
 	@Override
-	public void onArticleSelected(int position, View view) {
+	public void onArticleSelected(int position, View view,ItemProducto producto) {
 		// TODO Auto-generated method stub
 		
 		FragmentDetalleProductos detalleProductos = (FragmentDetalleProductos)getSupportFragmentManager().findFragmentById(R.id.frag_dtl_productos);
 		
 		if(detalleProductos !=null)
 		{
-			ItemProducto producto = new ItemProducto();
-			producto.setTitulo(String.valueOf(position));
-			producto.setSubTitulo(";D");
+			
 			detalleProductos.updateDetails(producto);
+			
 		}
 		
 	}

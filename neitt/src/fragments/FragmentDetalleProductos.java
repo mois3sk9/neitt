@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class FragmentDetalleProductos extends Fragment{
@@ -37,9 +38,16 @@ public class FragmentDetalleProductos extends Fragment{
 		//--Metodo para actualizar la informacion de los componentes
 		TextView titulo = (TextView)getActivity().findViewById(R.id.lbl_titulo_dp);
 		TextView subtitulo = (TextView)getActivity().findViewById(R.id.lbl_subtitulo_dp);
+		ImageView imagen = (ImageView) getActivity().findViewById(R.id.imagen_dtl_producto);
 		
 		titulo.setText(producto.getTitulo());
 		subtitulo.setText(producto.getSubTitulo());
+		
+		if(producto.getImage() !=0){
+			
+			imagen.setImageResource(producto.getImage());
+			
+		}
 	}
 
 }

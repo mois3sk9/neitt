@@ -2,19 +2,22 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:sgoliver="http://schemas.android.com/apk/res-auto" >
- 
+ <item
+        android:id="@+id/action_search"
+        android:orderInCategory="100"
+        sgoliver:showAsAction="ifRoom"  
+        android:title="Busqueda"
+        android:icon="@drawable/search"
+        />
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         sgoliver:showAsAction="ifRoom"
         android:title="settings"
+        android:icon="@drawable/settings"
         />
  
-    <item
-        android:id="@+id/action_search"
-        android:orderInCategory="100"
-        sgoliver:showAsAction="ifRoom"  
-        android:title="Busqueda"/>
+    
      <item
         android:id="@+id/Preferencias"
         android:orderInCategory="100"

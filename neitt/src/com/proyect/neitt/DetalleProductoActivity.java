@@ -1,5 +1,7 @@
 package com.proyect.neitt;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -12,6 +14,7 @@ public class DetalleProductoActivity extends ActionBarActivity{
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_detalle_productos);
+		getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0342ab")));
 	}
 	
 	

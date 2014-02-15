@@ -1,7 +1,16 @@
 package com.proyect.neitt;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.security.PublicKey;
 import java.util.ArrayList;
+
+import org.json.JSONObject;
+
+import conexion.hilos.AsyncDownloadTask;
+import conexion.hilos.AsyncDownloadTask.AsyncTaskListener;
+import conexion.hilos.especific.JsonUrl;
+import conexion.JsonConection;
 
 import entity.ItemProducto;
 import entity.OpcionesDrawer;
@@ -16,6 +25,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -49,6 +59,10 @@ public class MainActivity extends ActionBarActivity {
     		
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        
+        String url = "http://localhost/json/json.php";
+        
         
         //--Fragment por defecto--
         currentFragment = new Fragment1();
@@ -96,6 +110,25 @@ public class MainActivity extends ActionBarActivity {
 						//startActivity(new Intent(this,ProductoActivity.class));
 						//fragment  = new FragmentProductos();
 						//currentFragment = fragment;
+						break;
+					case 3:
+						fragment = currentFragment;
+						AsyncDownloadTask asyncdownload = null;
+						  
+						  URL url1 = null;
+						  
+						  try
+						  {
+							  url1 = new URL("http://www.json-generator.com/j/bSlKZaWvYi?indent=4");
+						  }
+						  catch(Exception e){
+							  
+						  }
+						  	
+						  asyncdownload = new AsyncDownloadTask(new JsonUrl(MainActivity.this));
+						  asyncdownload.execute(url1);
+						
+				       
 						break;
 					default:
 						fragment = currentFragment;

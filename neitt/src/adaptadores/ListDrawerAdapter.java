@@ -32,7 +32,7 @@ public class ListDrawerAdapter extends BaseAdapter{
 		this.activity = acitivity;
 		this.opciones = datos;
 		
-		inflater = activity.getLayoutInflater();
+		inflater = (LayoutInflater)activity.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
 		
 	}
@@ -72,12 +72,12 @@ public class ListDrawerAdapter extends BaseAdapter{
 		// TODO Auto-generated method stub
 		View v = convertView;
 		OpcionesDrawer opcionesDrawer = (OpcionesDrawer)this.getItem(position);
-		LayoutInflater in = this.inflater;
+		//LayoutInflater in = this.inflater;
 		
 		if(v == null)//Si el item no esta renderizado
 		{
 			//LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = in.inflate(R.layout.adaptador_lista_drawer,null);
+            v = this.inflater.inflate(R.layout.adaptador_lista_drawer,null);
 			//v = in.inflate(R.layout.adaptador_productos, null);
 		}
 		

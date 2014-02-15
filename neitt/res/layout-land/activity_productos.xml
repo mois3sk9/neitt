@@ -9,7 +9,7 @@
     <fragment 
         android:name="fragments.FragmentProductos"
         android:id="@+id/frg_dtl_pro"
-        android:layout_weight="1"
+        android:layout_weight="0.4"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         />

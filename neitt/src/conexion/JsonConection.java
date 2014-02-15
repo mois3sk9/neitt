@@ -1,8 +1,10 @@
 package conexion;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import org.apache.http.HttpEntity;
@@ -14,105 +16,159 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BufferedHeader;
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import android.os.Handler;
 import android.util.Log;
 
-public class JsonConection {
+public class JsonConection implements Runnable{
 	
-	public  String url="";
-	
-	private HttpGet peticionGet;
-	
-	private HttpClient cliente = new DefaultHttpClient();//realizara la peticion al servidor mediante una url
-	
-	public void JsonConection()
-	{
-		
+	 protected InputStream GetBufferFromGet(String url)
+
+	 {
+	     InputStream buffer = null;
+
+	     try 
+	     {
+
+	       DefaultHttpClient httpClient = new DefaultHttpClient();
+
+	       HttpGet g = new HttpGet(url);
+
+	       g.setHeader("Accept", "application/json");
+
+	       g.setHeader("Content-type", "application/json");
+
+	       HttpResponse httpResponse = httpClient.execute(g);
+
+	       HttpEntity httpEntity = httpResponse.getEntity();
+
+	       buffer = httpEntity.getContent();
+
+	     } 
+	     catch (UnsupportedEncodingException e)
+	     {
+
+	    	 Log.d("jsonConection", "**ERROR " + e.toString());
+	     } 
+
+	     catch (ClientProtocolException e) 
+	     {
+	       Log.d("jsonconecction", e.toString());
+	     }
+
+	     catch (IOException e) 
+	     {
+	       System.out.println("**ERROR " + e.toString());
+	     } 
+
+	     return buffer;
+
+	 }
+
+
+	 //2.- Pasar el InputStream a un Objeto JSON
+
+	 protected JSONObject GetJsonFromBuffer(InputStream InputBuffer) 
+	 {    
+
+	     InputStream bufferIn = InputBuffer;
+	     String bufferOut = "";
+	     JSONObject jObj = null;
+
+	     try 
+	     {
+	         BufferedReader reader = new BufferedReader(new InputStreamReader(bufferIn, "utf-8"), 8);
+	         StringBuilder sb = new StringBuilder();
+
+	         String line = null;
+
+	         while ((line = reader.readLine()) != null) 
+	         {
+	             sb.append(line + " ");
+	         }
+	         bufferIn.close();
+	         
+	         bufferOut = sb.toString();
+	         Log.d("cadena", bufferOut);
+	     } 
+	     catch (Exception e) 
+	     {
+	         Log.d("Error buffer", e.getMessage());
+	     }
+	     try 
+	     {
+	        jObj = new JSONObject(bufferOut);
+	     } 
+	     catch (JSONException e) 
+	     {
+	         System.out.println("**ERROR " + e.toString());
+	     }
+
+	     return jObj;
+
+	 }
+	 
+	 public void obtenerProductos(String url){
+		 
+		GetJsonFromBuffer(GetBufferFromGet(url));
+	 }
+	 
+	 public String readTwitterFeed() {
+		    StringBuilder builder = new StringBuilder();
+		    HttpClient client = new DefaultHttpClient();
+		    HttpGet httpGet = new HttpGet("http://localhost/json/json.php");
+		    try {
+		      HttpResponse response = client.execute(httpGet);
+		      StatusLine statusLine = response.getStatusLine();
+		      int statusCode = statusLine.getStatusCode();
+		      if (statusCode == 200) {
+		        HttpEntity entity = response.getEntity();
+		        InputStream content = entity.getContent();
+		        BufferedReader reader = new BufferedReader(new InputStreamReader(content));
+		        String line;
+		        while ((line = reader.readLine()) != null) {
+		          builder.append(line);
+		        }
+		      } else {
+		        Log.d("json_fail", "Failed to download file");
+		      }
+		      Log.d("jsonfinal",builder.toString());
+		    } catch (ClientProtocolException e) {
+		    	Log.d("json_fail", e.getMessage());
+		    } catch (IOException e) {
+		    	Log.d("json_fail", e.getMessage());
+		    }
+		    return builder.toString();
+		  }
+
+
+	@Override
+	public void run() {
+		Log.d("hilo",this.readTwitterFeed());
 	}
-	public void setUrl(String url)
-	{
-		this.url = url;
-	}
 	
-	public void conectar()//Se pasa un arreglo con los argumentos necesarios en la peticion
+	public void leerDatos()
 	{
-		
-	}
-	public JSONArray JsonInsert(ArrayList<Campo> parametros)throws Exception
-	{
-		
-		try
-		{
-			HttpGet peticionGet = new HttpGet(this.agregarParametros(parametros));//Se le pasa la url el meodo agregarparametros la devuelve como un string
-			HttpResponse respuesta = cliente.execute(peticionGet);//se ejecuta
-			StatusLine estado = respuesta.getStatusLine();//Se obtiene el estado de la peticion. 
+		final Handler hand = new Handler();
+		Thread hilo = new Thread(){
 			
-			int codigoEstado = estado.getStatusCode();
-			if(codigoEstado == 200) // Si la peticion fue exitosa
-			{
-				return new JSONArray(fetchResponse(respuesta));//Se extraen los datos
-			}
-			
-		}
-		catch(ClientProtocolException e)
-		{
-			
-		}
+			@Override
+			public void run() {
+				try
+				{
+					Thread.sleep(2000);
+					
+				}
+				catch(Exception ex){
+					Log.d("json_fail", ex.getMessage());
+				}	
+				hand.post(this);//-- al pasar esta clase se le pasa el metodo run automaticamente
+			}	
+		};
+		hilo.start();
 		
-		return null;
-		
-	}
-	
-	public void JsonQuery(ArrayList<Campo> parametros)
-	{
-		HttpGet peticionGet = new HttpGet(this.agregarParametros(parametros));
-		
-	}
-	
-	public String agregarParametros(ArrayList<Campo> parametros)
-	{
-		int contador=1;
-		String signo="?";
-		String url = this.url;
-		for(Campo campo : parametros)//Se construye una url con todos los parametros que se pasaron
-		{
-			if(contador!=1)
-				signo="&";
-			else
-				signo="?";
-			contador++;
-				
-				url+=signo + campo.getCampo() + "=" + campo.getValor();
-				
-		}
-		
-		return url;
-		
-	}
-	
-	public String fetchResponse(HttpResponse respuesta)throws Exception
-	{
-		/*
-		 * ---Metodo el cual se encarga de obtener todos los datos que se obtuvieron previamente a una peticion Json
-		 */
-		StringBuilder builder = new StringBuilder();
-		try
-		{
-			HttpEntity entidad = respuesta.getEntity();
-			InputStream contenido = entidad.getContent();
-			BufferedReader lector = new BufferedReader(new InputStreamReader(contenido));
-			
-			String line;
-			while((line = lector.readLine()) !=null)
-			{
-				builder.append(line);
-			}
-		}
-		catch(ClientProtocolException e)
-		{
-			Log.d("fetchResponse", "error" + e);
-		}
-		return builder.toString();
 	}
 	
 	
